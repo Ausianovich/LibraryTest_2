@@ -1,8 +1,9 @@
 name: Sending silent push notifications
 
-on: workflow_dispatch
-#   schedule:
-#       - cron: "*/1 * * * *"
+on: 
+  workflow_dispatch
+  schedule:
+      - cron: "1 * * * *"
 jobs:
   SendNotification:
     runs-on: ubuntu-latest                                

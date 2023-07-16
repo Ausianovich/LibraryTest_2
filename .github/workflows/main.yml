@@ -10,12 +10,11 @@ jobs:
     
       - name: Send notification
         run: |
-          response = $(curl --location --request POST 'https://fcm.googleapis.com/fcm/send' \
+            $(curl --location --request POST 'https://fcm.googleapis.com/fcm/send' \
                             --header 'Content-Type: application/json' \
                             --header 'Authorization: key=AAAAyWB4oao:APA91bHrECRRT9T6MdX8tj1Xa24hEwoA0SAwq0_pJUTHVbItEr-JcjB8urfHYKfO9gcYCKFAljgjn1AeYU8QUNt4UkiPa79ax48eZW00HtNUFTe-GBTQ7RN4FZJHNHB_cb6pHzN2e84-' \
                             --data '{
                                         "to": "/topics/zennotification",
                                         "priority": "high",
                                         "content_available": true
-                                    }')         
-          echo "response from curl= $response"  
+                                    }')

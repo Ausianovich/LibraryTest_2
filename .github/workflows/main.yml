@@ -4,10 +4,9 @@ on: workflow_dispatch
 #   schedule:
 #       - cron: "*/1 * * * *"
 jobs:
-  print-tag:
+  SendNotification:
     runs-on: ubuntu-latest
     steps:
-    
       - name: Send notification
         run: |
             $(curl --location --request POST 'https://fcm.googleapis.com/fcm/send' \

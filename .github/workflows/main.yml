@@ -5,15 +5,31 @@ on: workflow_dispatch
 #       - cron: "*/1 * * * *"
 jobs:
   SendNotification:
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Send notification
+#         run: |
+#             $(curl --location --request POST 'https://fcm.googleapis.com/fcm/send' \
+#                             --header 'Content-Type: application/json' \
+#                             --header 'Authorization: key=AAAAyWB4oao:APA91bHrECRRT9T6MdX8tj1Xa24hEwoA0SAwq0_pJUTHVbItEr-JcjB8urfHYKfO9gcYCKFAljgjn1AeYU8QUNt4UkiPa79ax48eZW00HtNUFTe-GBTQ7RN4FZJHNHB_cb6pHzN2e84-' \
+#                             --data '{
+#                                         "to": "/topics/zennotification",
+#                                         "priority": "high",
+#                                         "content_available": true
+#                                     }')
+                                    
     steps:
-      - name: Send notification
+      - name: Make Request
+        id: myRequest
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://fcm.googleapis.com/fcm/send"
+          method: "POST"
+          customHeaders: '{"Content-Type": "application/json", "Authorization": "key=AAAAyWB4oao:APA91bHrECRRT9T6MdX8tj1Xa24hEwoA0SAwq0_pJUTHVbItEr-JcjB8urfHYKfO9gcYCKFAljgjn1AeYU8QUNt4UkiPa79ax48eZW00HtNUFTe-GBTQ7RN4FZJHNHB_cb6pHzN2e84-"}'
+          data: '{"to": "/topics/zennotification", "priority": "high", "content_available": true}'
+          
+      - name: Show Response
         run: |
-            $(curl --location --request POST 'https://fcm.googleapis.com/fcm/send' \
-                            --header 'Content-Type: application/json' \
-                            --header 'Authorization: key=AAAAyWB4oao:APA91bHrECRRT9T6MdX8tj1Xa24hEwoA0SAwq0_pJUTHVbItEr-JcjB8urfHYKfO9gcYCKFAljgjn1AeYU8QUNt4UkiPa79ax48eZW00HtNUFTe-GBTQ7RN4FZJHNHB_cb6pHzN2e84-' \
-                            --data '{
-                                        "to": "/topics/zennotification",
-                                        "priority": "high",
-                                        "content_available": true
-                                    }')
+          echo ${{ steps.myRequest.outputs.response }}
+          echo ${{ steps.myRequest.outputs.headers }}
+          echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}

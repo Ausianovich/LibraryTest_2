@@ -13,7 +13,7 @@ jobs:
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v1'
       with:
-        credentials_json: '${{ secrets.FIREBASE_ZENTHOUGHTS_KEY }}'
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
     - uses: 'fjogeleit/http-request-action@v1'
       id: 'myRequest'
       name: MakeRequest

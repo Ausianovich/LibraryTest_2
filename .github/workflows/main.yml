@@ -14,6 +14,9 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+    - name: PrintToken
+      run: |
+        echo ${{ steps.auth.outputs.access_token }}
     - uses: 'fjogeleit/http-request-action@v1'
       id: 'myRequest'
       name: MakeRequest

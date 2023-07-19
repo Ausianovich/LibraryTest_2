@@ -14,14 +14,14 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: '${{ secrets.FIREBASE_ZENTHOUGHTS_KEY }}'   
-    - name: MakeRequest
-        uses: 'fjogeleit/http-request-action@v1'
-        id: 'myRequest'
-        with:
-          url: "https://fcm.googleapis.com/v1/projects/zenthoughts-c2424/messages:send"
-          method: "POST"
-          customHeaders: '{"Content-Type": "application/json", "Authorization": "Bearer ${{ steps.auth.outputs.access_token }}"}'
-          data: '{"message": {"topic": "zennotification", "priority": "high", "content_available": true}}'
+    - uses: 'fjogeleit/http-request-action@v1'
+      id: 'myRequest'
+      name: MakeRequest
+      with:
+        url: "https://fcm.googleapis.com/v1/projects/zenthoughts-c2424/messages:send"
+        method: "POST"
+        customHeaders: '{"Content-Type": "application/json", "Authorization": "Bearer ${{ steps.auth.outputs.access_token }}"}'
+        data: '{"message": {"topic": "zennotification", "priority": "high", "content_available": true}}'
     - name: Show Response
         run: |
           echo ${{ steps.myRequest.outputs.response }}

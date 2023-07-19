@@ -23,9 +23,9 @@ jobs:
         customHeaders: '{"Content-Type": "application/json", "Authorization": "Bearer ${{ steps.auth.outputs.access_token }}"}'
         data: '{"message": {"topic": "zennotification", "priority": "high", "content_available": true}}'
     - name: Show Response
-        run: |
-          echo ${{ steps.myRequest.outputs.response }}
-          echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
+      run: |
+        echo ${{ steps.myRequest.outputs.response }}
+        echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
       
 # jobs:
 #   SendNotification:

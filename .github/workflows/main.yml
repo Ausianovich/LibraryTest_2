@@ -14,9 +14,6 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: '${{ secrets.FIREBASE_ZENTHOUGHTS_KEY }}'
-  SendRequest:
-    runs-on: ubuntu-latest
-    steps:
     - uses: 'fjogeleit/http-request-action@v1'
       id: 'myRequest'
       name: MakeRequest

@@ -8,6 +8,9 @@ jobs:
   Auth_to_Firebase:
     runs-on: ubuntu-latest
     steps:
+    - name: PrintJSONKEY
+      run: |
+        echo ${{ secrets.GOOGLE_CREDENTIALS }}
     - uses: 'actions/checkout@v3'
     - id: 'auth'
       name: 'Authenticate to Google Cloud'

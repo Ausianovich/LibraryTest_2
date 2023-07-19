@@ -5,7 +5,7 @@ on:
   schedule:
       - cron: "*/6 * * * *"
 jobs:
-    Auth_to_Firebase:
+  Auth_to_Firebase:
     runs-on: ubuntu-latest
     steps:
     - uses: 'actions/checkout@v3'

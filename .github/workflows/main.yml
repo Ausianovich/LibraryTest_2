@@ -15,8 +15,8 @@ jobs:
       with:
         credentials_json: '${{ secrets.FIREBASE_ZENTHOUGHTS_KEY }}'   
     - name: MakeRequest
+        uses: 'fjogeleit/http-request-action@v1'
         id: 'myRequest'
-        uses: fjogeleit/http-request-action@v1
         with:
           url: "https://fcm.googleapis.com/v1/projects/zenthoughts-c2424/messages:send"
           method: "POST"

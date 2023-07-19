@@ -14,8 +14,8 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: '${{ secrets.FIREBASE_ZENTHOUGHTS_KEY }}'   
-    - name: Make Request
-        id: myRequest
+    - name: MakeRequest
+        id: 'myRequest'
         uses: fjogeleit/http-request-action@v1
         with:
           url: "https://fcm.googleapis.com/v1/projects/zenthoughts-c2424/messages:send"

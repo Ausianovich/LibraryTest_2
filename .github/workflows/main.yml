@@ -25,12 +25,12 @@ jobs:
         url: "https://fcm.googleapis.com/v1/projects/zenthoughts-c2424/messages:send"
         method: "POST"
         customHeaders: '{"Content-Type": "application/json", "Authorization": "Bearer ${{ steps.auth.outputs.access_token }}"}'
-        data: '{"message": {"topic": "zennotification", "notification": {"title": "Some title", "body": "Some body"}, "apns": {"payload": {"aps": {"priority": "high", "content_available": true}}}}}'
+        data: '{"message": {"topic": "zennotification", "notification": {"title": "Some title", "body": "Some body"}}}'
     - name: Show Response
       run: |
         echo ${{ steps.myRequest.outputs.response }}
         echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
-      
+#       data: '{"message": {"topic": "zennotification", "notification": {"title": "Some title", "body": "Some body"}, "apns": {"payload": {"aps": {"priority": "high", "content_available": true}}}}}'
 # jobs:
 #   SendNotification:
 #     runs-on: ubuntu-latest                                

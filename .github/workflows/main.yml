@@ -5,19 +5,53 @@ on:
   schedule:
       - cron: "*/6 * * * *"
 jobs:
-  SendNotification:
-    runs-on: ubuntu-latest                                
+    Auth_to_Firebase:
+    runs-on: ubuntu-latest
     steps:
-      - name: Make Request
+    - uses: 'actions/checkout@v3'
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.FIREBASE_ZENTHOUGHTS_KEY }}'   
+    - name: Make Request
         id: myRequest
         uses: fjogeleit/http-request-action@v1
         with:
-          url: "https://fcm.googleapis.com/fcm/send"
+          url: "https://fcm.googleapis.com/v1/projects/zenthoughts-c2424/messages:send"
           method: "POST"
-          customHeaders: '{"Content-Type": "application/json", "Authorization": "key=AAAAyWB4oao:APA91bHrECRRT9T6MdX8tj1Xa24hEwoA0SAwq0_pJUTHVbItEr-JcjB8urfHYKfO9gcYCKFAljgjn1AeYU8QUNt4UkiPa79ax48eZW00HtNUFTe-GBTQ7RN4FZJHNHB_cb6pHzN2e84-"}'
-          data: '{"to": "/topics/zennotification", "priority": "high", "content_available": true}'
-          
-      - name: Show Response
+          customHeaders: '{"Content-Type": "application/json", "Authorization": "Bearer ${{ steps.auth.outputs.access_token }}"}'
+          data: '{"message": {"topic": "zennotification", "priority": "high", "content_available": true}}'
+    - name: Show Response
         run: |
           echo ${{ steps.myRequest.outputs.response }}
           echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
+          
+#       - name: Show Response
+#         run: |
+#           echo ${{ steps.myRequest.outputs.response }}
+#           echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
+#     - id: 'access-secret'
+#       run: |-
+#         curl https://secretmanager.googleapis.com/v1/projects/my-project/secrets/my-secret/versions/1:access \
+#           --header "Authorization: Bearer ${{ steps.auth.outputs.access_token }}"
+      
+      
+      
+# jobs:
+#   SendNotification:
+#     runs-on: ubuntu-latest                                
+#     steps:
+#       - name: Make Request
+#         id: myRequest
+#         uses: fjogeleit/http-request-action@v1
+#         with:
+#           url: "https://fcm.googleapis.com/fcm/send"
+#           method: "POST"
+#           customHeaders: '{"Content-Type": "application/json", "Authorization": "key=AAAAyWB4oao:APA91bHrECRRT9T6MdX8tj1Xa24hEwoA0SAwq0_pJUTHVbItEr-JcjB8urfHYKfO9gcYCKFAljgjn1AeYU8QUNt4UkiPa79ax48eZW00HtNUFTe-GBTQ7RN4FZJHNHB_cb6pHzN2e84-"}'
+#           data: '{"to": "/topics/zennotification", "priority": "high", "content_available": true}'
+          
+#       - name: Show Response
+#         run: |
+#           echo ${{ steps.myRequest.outputs.response }}
+#           echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}

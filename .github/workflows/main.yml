@@ -26,7 +26,7 @@ jobs:
         method: "POST"
         customHeaders: '{"Content-Type": "application/json", "Authorization": "Bearer ${{ steps.auth.outputs.access_token }}"}'
 #         data: '{"message": {"topic": "zennotification", "notification": {"title": "Some title from GitHub", "body": "Some body from GitHub"}}}'
-          date: '{"message": {"topic": "zennotification", "apns": {"payload": {"aps": {"priority": "high","content_available": true}}}}}}'
+          date: '{"message": {"topic": "zennotification", "apns": {"payload": {"aps": {"priority": "high","content_available": true}}}}}'
     - name: Show Response
       run: |
         echo ${{ steps.myRequest.outputs.response }}
